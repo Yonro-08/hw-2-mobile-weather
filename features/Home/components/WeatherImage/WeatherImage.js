@@ -1,4 +1,5 @@
 import { Image, StyleSheet, View } from "react-native";
+
 import { weatherImages } from "../../../../constans";
 
 const WeatherImage = ({ current }) => {

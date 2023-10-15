@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
 
-import WeatherLocation from "./WeatherLocation/WeatherLocation";
-import WeatherImage from "./WeatherImage/WeatherImage";
-import WeatherTemp from "./WeatherTemp/WeatherTemp";
+import WeatherLocation from "../WeatherLocation/WeatherLocation";
+import WeatherImage from "../WeatherImage/WeatherImage";
+import WeatherTemp from "../WeatherTemp/WeatherTemp";
 
 const WeatherContent = ({ weather }) => {
   return (

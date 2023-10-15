@@ -1,10 +1,12 @@
 import { LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import HomeScreen from "../screens/HomeScreen";
+import HomeScreenNavigation from "./HomeScreenNavigation";
+import HistoryScreenNavigation from "./HistoryScreenNavigation";
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 LogBox.ignoreAllLogs([
   "Non serializable values were found in the navigation state",
@@ -12,15 +14,22 @@ LogBox.ignoreAllLogs([
 
 const AppNavigation = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreenNavigation}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="History"
+            component={HistoryScreenNavigation}
+            options={{ headerShown: false }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

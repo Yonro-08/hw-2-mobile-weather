@@ -5,21 +5,21 @@ const OtherStats = ({ current, forecast }) => {
     <View style={styles.otherStats}>
       <View style={styles.stat}>
         <Image
-          source={require("../../../assets/icons/wind.png")}
+          source={require("../../../../assets/icons/wind.png")}
           style={styles.image}
         />
         <Text style={styles.text}>{current?.wind_kph}km</Text>
       </View>
       <View style={styles.stat}>
         <Image
-          source={require("../../../assets/icons/drop.png")}
+          source={require("../../../../assets/icons/drop.png")}
           style={styles.image}
         />
         <Text style={styles.text}>{current?.humidity}%</Text>
       </View>
       <View style={styles.stat}>
         <Image
-          source={require("../../../assets/icons/sun.png")}
+          source={require("../../../../assets/icons/sun.png")}
           style={styles.image}
         />
         <Text style={styles.text}>

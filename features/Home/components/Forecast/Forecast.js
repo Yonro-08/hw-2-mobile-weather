@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { CalendarDaysIcon } from "react-native-heroicons/outline";
-import ForecastItem from "./ForecastItem/ForecastItem";
+
+import ForecastItem from "../ForecastItem/ForecastItem";
 
 const Forecast = ({ forecast }) => {
   return (

@@ -2,10 +2,10 @@ import { useCallback, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { debounce } from "lodash";
 
-import SearchForm from "./SearchForm/SearchForm";
-import SearchTips from "./SearchTips/SearchTips";
+import SearchForm from "../SearchForm/SearchForm";
+import SearchTips from "../SearchTips/SearchTips";
 
-import { fetchLocations } from "../../../lib/api/weather";
+import { fetchLocations } from "../../../../lib/api/weather";
 
 const SearchBar = ({ setWeather, setLoading }) => {
   const [showSearch, toggleSearch] = useState(false);
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   search: {
     position: "relative",
     height: "7%",
-    marginTop: 50,
     marginHorizontal: 16,
     zIndex: 50,
   },
