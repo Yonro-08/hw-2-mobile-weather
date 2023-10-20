@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { StyleSheet, View, ImageBackground } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as Progress from "react-native-progress";
@@ -11,24 +11,26 @@ import {
   Forecast,
 } from "../features/Home";
 
-import { fetchWeatherForecast } from "../lib/api/weather";
+import { fetchWeatherForecast } from "../store/weatherSlice";
 import { getData } from "../utils/asyncStorage";
+import { useDispatch, useSelector } from "react-redux";
 
 const HomeScreen = () => {
-  const [weather, setWeather] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { weather, loaded: weatherLoaded } = useSelector(
+    (state) => state.weather
+  );
+  const dispatch = useDispatch();
 
   const fetchMyWeatherData = async () => {
-    const myCity = await getData("city");
+    const myCity = JSON.parse(await getData("cities"));
     let cityName = "Astana";
-    if (myCity) cityName = myCity;
-    fetchWeatherForecast({
-      cityName,
-      days: "7",
-    }).then((data) => {
-      setWeather(data);
-      setLoading(false);
-    });
+    if (myCity.length > 0) cityName = myCity[0];
+    dispatch(
+      fetchWeatherForecast({
+        cityName,
+        days: "7",
+      })
+    );
   };
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const HomeScreen = () => {
     >
       <SafeAreaView style={styles.flex}>
         <StatusBar style="light" />
-        {loading ? (
+        {!weatherLoaded ? (
           <View style={styles.loading}>
             <Progress.CircleSnail
               thickness={10}
@@ -54,7 +56,7 @@ const HomeScreen = () => {
           </View>
         ) : (
           <SafeAreaView style={styles.flex}>
-            <SearchBar setWeather={setWeather} setLoading={setLoading} />
+            <SearchBar />
             <WeatherContent weather={weather} />
             <OtherStats current={weather.current} forecast={weather.forecast} />
             <Forecast forecast={weather.forecast} />

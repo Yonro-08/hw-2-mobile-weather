@@ -1,3 +1,4 @@
 {
-  "git-graph.retainContextWhenHidden": true
+  "git-graph.retainContextWhenHidden": true,
+  "cSpell.words": ["reduxjs"]
 }

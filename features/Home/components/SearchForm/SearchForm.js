@@ -1,16 +1,30 @@
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import {
-  Keyboard,
   StyleSheet,
+  KeyboardAvoidingView,
+  View,
   TextInput,
   TouchableOpacity,
-  View,
-  KeyboardAvoidingView,
 } from "react-native";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
+import { debounce } from "lodash";
 
+import { fetchLocations } from "../../../../store/locationsSlice";
 import { theme } from "../../../../theme/index";
 
-const SearchForm = ({ showSearch, toggleSearch, handleTextDebounce }) => {
+const SearchForm = ({ showSearch, toggleSearch }) => {
+  const dispatch = useDispatch();
+
+  const handleSearch = (value) => {
+    // fetch locations
+    if (value.length > 2) {
+      dispatch(fetchLocations({ cityName: value }));
+    }
+  };
+
+  const handleTextDebounce = useCallback(debounce(handleSearch, 1200), []);
+
   return (
     <KeyboardAvoidingView>
       <View
@@ -33,7 +47,6 @@ const SearchForm = ({ showSearch, toggleSearch, handleTextDebounce }) => {
           style={styles.button}
           onPress={() => {
             toggleSearch(!showSearch);
-            Keyboard.dismiss();
           }}
         >
           <MagnifyingGlassIcon size={25} color="white" />

@@ -1,28 +1,22 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MapPinIcon } from "react-native-heroicons/solid";
 
-import { fetchWeatherForecast } from "../../../../lib/api/weather";
-import { storeData } from "../../../../utils/asyncStorage";
+import { fetchWeatherForecast } from "../../../../store/weatherSlice";
+import { clearLocationsList } from "../../../../store/locationsSlice";
+import { useDispatch } from "react-redux";
 
-const SearchTips = ({
-  locations,
-  setLocations,
-  toggleSearch,
-  setWeather,
-  setLoading,
-}) => {
+const SearchTips = ({ locations, toggleSearch }) => {
+  const dispatch = useDispatch();
+
   const handleLocation = (location) => {
-    setLocations([]);
+    dispatch(clearLocationsList());
     toggleSearch(false);
-    setLoading(true);
-    fetchWeatherForecast({
-      cityName: location.name,
-      days: "7",
-    }).then((data) => {
-      setWeather(data);
-      setLoading(false);
-      storeData("city", location.name);
-    });
+    dispatch(
+      fetchWeatherForecast({
+        cityName: location.name,
+        days: "7",
+      })
+    );
   };
 
   return (
