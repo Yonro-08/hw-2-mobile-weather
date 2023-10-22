@@ -22,8 +22,9 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const fetchMyWeatherData = async () => {
-    const myCity = JSON.parse(await getData("cities"));
+    const myCity = JSON.parse(await getData("cities")) || [];
     let cityName = "Astana";
+    console.log(myCity);
     if (myCity.length > 0) cityName = myCity[0];
     dispatch(
       fetchWeatherForecast({
